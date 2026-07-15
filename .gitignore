@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# large model binaries - download with the command in the README
+voices/*.onnx
+voices/*.onnx.json
+
+# generated at runtime
+latency_log.csv
+nohup_run.log
+*.log
+
+# private planning / assignment notes - do not publish
+context.md
+Assignment*.pdf

@@ -1,0 +1,12 @@
+# Python 3.10. Install into a fresh environment.
+# System prerequisites (not pip-installable): PortAudio, Ollama, and the qwen2.5:3b model.
+# See README for the full setup.
+
+faster-whisper>=1.2.1
+silero-vad>=6.2.1
+piper-tts>=1.4.2
+ollama>=0.6.2
+sounddevice>=0.5.5
+soundfile>=0.14.0
+numpy>=1.26
+scipy>=1.15
