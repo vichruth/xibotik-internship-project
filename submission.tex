@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 
 \usepackage[margin=1in]{geometry}
+\setlength{\headheight}{14pt}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
@@ -31,6 +32,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \setlength{\droptitle}{-2cm}
+\emergencystretch=1.5em
 
 \title{\textbf{Offline Real-Time Voice Assistant}\\[4pt]
 \large Design Document, Measured Latency, AI-Usage Disclosure \& Deliverable Links}
@@ -52,6 +54,7 @@ with no network calls at any stage.
 \section{Architecture}
 
 \begin{center}
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
     node distance=6mm and 8mm,
     box/.style={draw, rounded corners, minimum height=9mm, minimum width=20mm, align=center, font=\small},
@@ -77,7 +80,8 @@ with no network calls at any stage.
 \node[lbl, below=2mm of stt] {STT, GPU\\small.en, int8};
 \node[lbl, below=3mm of llm] {LLM, streamed\\3B params};
 \node[lbl, below=2mm of tts] {TTS, CPU\\streamed};
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \end{center}
 
 \noindent\textbf{The core latency trick.} A naive pipeline waits for the complete LLM response
@@ -106,8 +110,7 @@ LLM & \texttt{qwen2.5:3b} via Ollama, streaming & A 7B model does not fit the 2\
 a 6\,GB laptop GPU; a 3B model gives a first token in \textasciitilde180--230\,ms. Deliberate
 latency-vs-quality tradeoff, mitigated by sentence-level streaming so the user hears audio
 long before generation finishes. \\
-TTS & Piper, \texttt{en\_US-lessac-medium}, CPU & Lightweight VITS model, \textasciitilde50--
-100\,ms to synthesize a sentence. Deliberately kept on CPU so the 6\,GB GPU is shared only
+TTS & Piper TTS, CPU (voice \texttt{lessac}\--\texttt{medium}) & Lightweight VITS model, \textasciitilde50--100\,ms to synthesize a sentence. Deliberately kept on CPU so the 6\,GB GPU is shared only
 between STT and the LLM, avoiding VRAM contention. Coqui/XTTS sound better but take seconds
 per utterance and are not viable inside the budget. \\
 Audio I/O & \texttt{sounddevice} (PortAudio) & Callback-based streaming I/O, which is what
