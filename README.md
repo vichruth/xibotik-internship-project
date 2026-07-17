@@ -6,7 +6,7 @@ stage. The design target is low *perceived* latency: the user should hear the be
 reply quickly, even when the full response takes longer to generate.
 
 Built and measured on a Lenovo LOQ 15ARP9 (Ryzen 7 7435HS, RTX 4050 6 GB, 24 GB RAM),
-Pop!\_OS 24.04.
+Fedora 44.
 
 ## How it works
 
@@ -61,8 +61,8 @@ Latency is logged per turn to `latency_log.csv`; regenerate it by running the as
 Requires Python 3.10, an NVIDIA GPU with CUDA, PortAudio, and Ollama.
 
 ```bash
-# 1. system audio library (Debian/Ubuntu/Pop!_OS)
-sudo apt install libportaudio2          # or: conda install -c conda-forge portaudio
+# 1. system audio library (Fedora; on Debian/Ubuntu: sudo apt install libportaudio2)
+sudo dnf install portaudio              # or: conda install -c conda-forge portaudio
 
 # 2. python dependencies
 pip install -r requirements.txt
