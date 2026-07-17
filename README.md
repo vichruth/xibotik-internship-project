@@ -44,12 +44,13 @@ The assistant is built not to stall or show errors:
 
 Median per stage, relative to end of speech, warm (RTX 4050, model resident in VRAM):
 
-| Stage | Time |
+| Stage | Median |
 |---|---|
-| Filler acknowledgement | ~90 ms |
-| STT (faster-whisper small.en) | ~200 ms |
-| LLM first token | ~180–230 ms |
-| **Time to first audio (TTFA)** | **~520–600 ms** |
+| Filler acknowledgement | ~3 ms |
+| STT (faster-whisper small.en) | ~110 ms |
+| LLM first token | ~335 ms |
+| **Time to first audio (TTFA)** | **~690 ms** |
+| Full reply spoken | ~850 ms |
 
 GPU memory with STT + LLM + TTS all loaded: ~3.6 GB of 6 GB.
 
