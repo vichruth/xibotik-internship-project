@@ -152,9 +152,9 @@ class Assistant:
         # Barge-in guards against the assistant's own voice leaking into the mic on laptop
         # speakers: a higher probability threshold than endpointing, a short run of frames,
         # and a grace window right after playback starts. Headphones avoid the echo entirely.
-        BARGE_CONFIRM = 6            # ~200 ms of sustained speech
-        BARGE_THRESHOLD = 0.85
-        BARGE_GRACE_S = 0.4
+        BARGE_CONFIRM = 10           # ~320 ms of sustained speech
+        BARGE_THRESHOLD = 0.95
+        BARGE_GRACE_S = 0.8
         try:
             while True:
                 block48k = self.in_q.get()

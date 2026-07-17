@@ -10,6 +10,13 @@ source /home/vichruth/miniconda3/etc/profile.d/conda.sh
 conda activate ml_vision
 cd "$(dirname "$0")"
 
+# ctranslate2 (faster-whisper's backend) links against CUDA 12's cuBLAS/cuDNN; this
+# machine's system CUDA is 13 (via torch), so point the loader at the CUDA 12 libs
+# pip installs into site-packages instead.
+CU12_LIBS=$(python -c "import nvidia.cublas, nvidia.cudnn; print(list(nvidia.cublas.__path__)[0]+'/lib:'+list(nvidia.cudnn.__path__)[0]+'/lib')" 2>/dev/null)
+[ -n "$CU12_LIBS" ] && export LD_LIBRARY_PATH="$CU12_LIBS:$LD_LIBRARY_PATH"
+export HF_HUB_DISABLE_XET=1
+
 CARD="${AUDIO_CARD:-}"
 SAVED_PROFILE=""
 
