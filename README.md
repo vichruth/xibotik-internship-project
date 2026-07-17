@@ -68,6 +68,11 @@ sudo dnf install portaudio              # or: conda install -c conda-forge porta
 # 2. python dependencies
 pip install -r requirements.txt
 
+# 2b. only if your torch/CUDA stack is CUDA 13: ctranslate2 (faster-whisper's backend)
+#     links against CUDA 12, so install the CUDA 12 libs as wheels — run.sh points
+#     LD_LIBRARY_PATH at them automatically
+pip install nvidia-cublas-cu12 nvidia-cudnn-cu12
+
 # 3. language model (Ollama must be installed and running)
 ollama pull qwen2.5:3b
 
